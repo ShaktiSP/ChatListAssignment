@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.firebaseassignment.R
 import com.example.firebaseassignment.adapter.SendMessageAdapter
@@ -72,8 +73,11 @@ class ChatActivity : AppCompatActivity() {
                     chatList.clear()
                     chatList.addAll(it.data?.data!!)
                     sendMessageAdapter = SendMessageAdapter(this, chatList)
+                    val layoutManager = LinearLayoutManager(this)
+                    layoutManager.stackFromEnd = true
                     binding.rvRecyclerView.adapter = sendMessageAdapter
-                    binding.rvRecyclerView.scrollToPosition(chatList.size - 1)
+
+                    binding.rvRecyclerView.smoothScrollToPosition(chatList.size - 1)
                 }
 
                 Status.LOADING -> {
