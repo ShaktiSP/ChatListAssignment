@@ -55,6 +55,11 @@ class ChatActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        binding.ivBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
         binding.ivSend.setOnClickListener {
             postViewModel.chatSendApi(userID, binding.etChat.text.toString(), "text")
         }
@@ -68,6 +73,7 @@ class ChatActivity : AppCompatActivity() {
                     chatList.addAll(it.data?.data!!)
                     sendMessageAdapter = SendMessageAdapter(this, chatList)
                     binding.rvRecyclerView.adapter = sendMessageAdapter
+                    binding.rvRecyclerView.scrollToPosition(chatList.size - 1)
                 }
 
                 Status.LOADING -> {
